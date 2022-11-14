@@ -57,9 +57,7 @@ class View {
     // event binding
    
     bindButton(handler) {
-        this.button.addEventListener('click', () => {
-            handler();
-        })
+        this.button.addEventListener('click',handler);
     }
 }
 
@@ -70,16 +68,18 @@ class Controller {
 
         // event binding
 
-        this.view.bindButton(this.handleAddCount);
+        this.view.bindButton(this.handleAddCount.bind(this));
 
-        this.model.bindCountChanged(this.onCountChanged);
+        this.model.bindCountChanged(this.onCountChanged.bind(this));
     }
 
-    onCountChanged = (count) => {
+    // MUST use arrow syntax so `this` is the Controller
+    onCountChanged(count) {
         this.view.displayCount(count);
     }
 
-    handleAddCount = () => {
+    // MUST use arrow syntax so `this` is the Controller
+    handleAddCount() {
         this.model.add();
     }
 }
