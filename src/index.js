@@ -1,6 +1,10 @@
 import './reset.css';
 import './style.css';
 
+// !!!  REMOVE count, countLabel, button
+
+// Model View Controller
+
 class Model {
     constructor() {
         this.count=0;
@@ -31,7 +35,18 @@ class View {
         this.countLabel = this.createElement('div');
         this.countLabel.textContent='0';
 
-        this.app.append(this.button,this.countLabel);
+        // content
+        const header = this.createElement('div','header');
+        header.textContent = 'to-do';
+
+        const contentContainer = this.createElement('div','content-container');
+        
+        const sidebar = this.createElement('div','sidebar');
+        const mainContent = this.createElement('div','main-content');
+
+        contentContainer.append(sidebar,mainContent);
+
+        this.app.append(header,contentContainer);
     }
 
     // helper methods
