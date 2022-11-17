@@ -23,6 +23,14 @@ class Model {
             new List('Today'),
             new List('Upcoming')];
     }
+
+    getListNames() {
+        let listNames = [];
+        for (let list of this.lists) {
+            listNames.push(list.name);
+        }
+        return listNames;
+    }
 }
 
 class View {
@@ -67,10 +75,11 @@ class View {
 
     // view methods
 
-    displayLists(lists) {
-        for (let list of lists) {
-            const listTitle = this.createElement('button','sidebar-item',list.name);
-            this.sidebar.appendChild(listTitle);
+    // generates sidebar given a list of item names
+    displaySidebar(listNames) {
+        for (let name of listNames) {
+            const listReference = this.createElement('button','sidebar-item',name);
+            this.sidebar.appendChild(listReference);
         }
     }
 
@@ -94,7 +103,7 @@ class Controller {
     }
 
     onListsChanged() {
-        this.view.displayLists(this.model.lists);
+        this.view.displaySidebar(this.model.getListNames());
     }
 
     // DELETE THIS
