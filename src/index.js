@@ -47,6 +47,19 @@ class View {
         contentContainer.append(sidebar,mainContent);
 
         this.app.append(header,contentContainer);
+
+        // lists
+        const todoToday = this.createElement('button','todo-today');
+        todoToday.textContent = 'Today';
+        const todoUpcoming = this.createElement('button','todo-upcoming');
+        todoUpcoming.textContent = 'Upcoming';
+        sidebar.append(todoToday,todoUpcoming);
+
+        // todos
+        this.listTitle = this.createElement('div','list-title');
+        this.listTitle.textContent = 'Today';
+        this.todoList = this.createElement('div','todo-list');
+        mainContent.append(this.listTitle,this.todoList);
     }
 
     // helper methods
