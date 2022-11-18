@@ -73,7 +73,6 @@ class View {
         this.app = this.getElement('body');
 
         const header = this.createElement('div','header');
-        header.textContent = 'to-do';
 
         const contentContainer = this.createElement('div','content-container');
         this.sidebar = this.createElement('div','sidebar');

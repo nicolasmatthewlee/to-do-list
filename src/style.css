@@ -1,10 +1,13 @@
 :root {
-    --header-height: 35px;
+    --header-height: 40px;
     --padding: 20px;
 
     --light-gray: rgb(235, 235, 235);
     --green: #32936F;
-    --yellow: #FFBF00;
+
+    --red: rgb(203, 68, 61);
+    --dark-red: rgb(124, 22, 13);
+    --gray: rgb(248, 248, 248);
 
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -17,14 +20,7 @@ body {
 .header {
     height: var(--header-height);
 
-    text-align: left;
-    padding-left: var(--padding);
-
-    font-size: 30px;
-    font-weight: 500;
-
-    color: black;
-    background-color: var(--yellow);
+    background-color: var(--red);
 }
 
 .content-container {
@@ -39,6 +35,11 @@ body {
 .sidebar {
     width: 200px;
 
+    padding: var(--padding);
+    box-sizing: border-box;
+
+    background-color: var(--gray);
+    
     display: flex;
     flex-direction: column;
 }
@@ -47,10 +48,12 @@ body {
     height: 30px;
     width: 100%;
 
+    font-size: 20px;
+
     text-align: left;
     padding-left: var(--padding);
 
-    background-color: white;
+    background-color: var(--gray);
     border: none;
 }
 
@@ -66,7 +69,6 @@ body {
 
 .main-content {
     flex: 1;
-    background-color: whitesmoke;
 
     display: flex;
     flex-direction: column;
