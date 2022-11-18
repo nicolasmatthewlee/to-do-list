@@ -10,18 +10,28 @@ class Todo {
 }
 
 class List {
-    constructor(name) {
+    constructor(name,id) {
         this.name=name;
+        this.id=id;
     }
 }
 
 // Model View Controller
 
 class Model {
+
+    IDGenerator=-1;
+
     constructor() {
+
         this.lists=[
-            new List('Today'),
-            new List('Upcoming')];
+            new List('Today',this.generateID()),
+            new List('Upcoming',this.generateID())];
+    }
+
+    generateID() {
+        this.IDGenerator++;
+        return this.IDGenerator;
     }
 
     getListNames() {
@@ -30,6 +40,14 @@ class Model {
             listNames.push(list.name);
         }
         return listNames;
+    }
+
+    getListIDs() {
+        let listIDs = [];
+        for (let list of this.lists) {
+            listIDs.push(list.id);
+        }
+        return listIDs;
     }
 }
 
@@ -76,14 +94,15 @@ class View {
     // view methods
 
     // generates sidebar given a list of item names
-    displaySidebar(listNames) {
-        for (let name of listNames) {
-            const listReference = this.createElement('button','sidebar-item',name);
+    displaySidebar(listNames,listIDs) {
+        for (let i=0;i<listNames.length;i++) {
+            const listReference = this.createElement('button','sidebar-item',listNames[i]);
+            listReference.dataset.id = listIDs[i];
             this.sidebar.appendChild(listReference);
         }
     }
 
-    // event binding DELETE THISs
+    // event binding DELETE THIS
     bindButton(handler) {
         //this.button.addEventListener('click',handler);
     }
@@ -103,7 +122,7 @@ class Controller {
     }
 
     onListsChanged() {
-        this.view.displaySidebar(this.model.getListNames());
+        this.view.displaySidebar(this.model.getListNames(),this.model.getListIDs());
     }
 
     // DELETE THIS
