@@ -1,6 +1,10 @@
 import './reset.css';
 import './style.css';
 
+import HOME_ICON from './assets/home.svg';
+import CALENDAR_ICON from './assets/calendar.svg';
+import ADD_ICON from './assets/add.svg';
+
 // !!!  REMOVE count, countLabel, button
 
 class List {
@@ -55,7 +59,7 @@ class Model {
                 return list.name;
             }
         }
-        return 'list not found'
+        return 'list not found';
     }
 
     getListItems(id) {
@@ -73,6 +77,12 @@ class View {
         this.app = this.getElement('body');
 
         const header = this.createElement('div','header');
+        const homeButton = this.createElement('img','header-home-button');
+        homeButton.src = HOME_ICON;
+        const headerSpacer = this.createElement('div','header-spacer');
+        const addButton = this.createElement('img','header-add-button');
+        addButton.src = ADD_ICON;
+        header.append(homeButton,headerSpacer,addButton);
 
         const contentContainer = this.createElement('div','content-container');
         this.sidebar = this.createElement('div','sidebar');
@@ -111,9 +121,14 @@ class View {
     displaySidebar(listNames,listIDs) {
         // displays sidebar given a list of item names
         for (let i=0;i<listNames.length;i++) {
-            const listReference = this.createElement('button','sidebar-item',listNames[i]);
-            listReference.dataset.id = listIDs[i];
-            this.sidebar.appendChild(listReference);
+            const sidebarItem = this.createElement('button','sidebar-item');
+            sidebarItem.dataset.id = listIDs[i];
+            this.sidebar.appendChild(sidebarItem);
+
+            const sidebarItemIcon = this.createElement('img','sidebar-item-icon');
+            sidebarItemIcon.src=CALENDAR_ICON;
+            const sidebarItemLabel = this.createElement('div','sidebar-item-label',listNames[i]);
+            sidebarItem.append(sidebarItemIcon,sidebarItemLabel);
         }
     }
 
