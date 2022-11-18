@@ -3,16 +3,15 @@ import './style.css';
 
 // !!!  REMOVE count, countLabel, button
 
-class Todo {
-    constructor(name) {
-        this.name=name;
-    }
-}
-
 class List {
     constructor(name,id) {
         this.name=name;
         this.id=id;
+        this.items=[];
+    }
+
+    add(todo) {
+        this.items.push(todo);
     }
 }
 
@@ -58,6 +57,14 @@ class Model {
         }
         return 'list not found'
     }
+
+    getListItems(id) {
+        for (let list of this.lists) {
+            if (list.id==id) {
+                return list.items;
+            }
+        }
+    }
 }
 
 class View {
@@ -101,9 +108,9 @@ class View {
     }
 
     // view methods
-
-    // displays sidebar given a list of item names
+    
     displaySidebar(listNames,listIDs) {
+        // displays sidebar given a list of item names
         for (let i=0;i<listNames.length;i++) {
             const listReference = this.createElement('button','sidebar-item',listNames[i]);
             listReference.dataset.id = listIDs[i];
@@ -111,12 +118,24 @@ class View {
         }
     }
 
-    // displays listTitle
     displayListTitle(title) {
         this.listTitle.textContent=title;
     }
 
+    displayList(items) {
+        // clear todos
+        while (this.todoList.firstChild) {
+            this.todoList.removeChild(this.todoList.firstChild);
+        }
+
+        items.forEach(item => {
+            const itemNode = this.createElement('div','list-item',item);
+            this.todoList.append(itemNode);
+        })
+    }
+
     // event binding
+
     bindListReferences(handler) {
         for (let listReference of document.querySelectorAll('.sidebar-item')) {
             listReference.addEventListener('click',() => handler(listReference.dataset.id))
@@ -147,6 +166,7 @@ class Controller {
     // event handling
     handleListClicked(id) {
         this.view.displayListTitle(this.model.getListTitle(id));
+        this.view.displayList(this.model.getListItems(id));
     }
 
     // DELETE THIS
@@ -163,3 +183,6 @@ class Controller {
 }
 
 const app = new Controller(new Model(), new View());
+
+// for testing (DELETE THIS)
+app.model.lists[0].add('pick up groceries');
