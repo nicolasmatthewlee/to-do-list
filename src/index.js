@@ -186,3 +186,4 @@ const app = new Controller(new Model(), new View());
 
 // for testing (DELETE THIS)
 app.model.lists[0].add('pick up groceries');
+app.model.lists[0].add('go to the store');
