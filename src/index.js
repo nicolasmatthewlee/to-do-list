@@ -49,6 +49,15 @@ class Model {
         }
         return listIDs;
     }
+
+    getListTitle(id) {
+        for (let list of this.lists) {
+            if (list.id==id) {
+                return list.name;
+            }
+        }
+        return 'list not found'
+    }
 }
 
 class View {
@@ -93,7 +102,7 @@ class View {
 
     // view methods
 
-    // generates sidebar given a list of item names
+    // displays sidebar given a list of item names
     displaySidebar(listNames,listIDs) {
         for (let i=0;i<listNames.length;i++) {
             const listReference = this.createElement('button','sidebar-item',listNames[i]);
@@ -102,9 +111,16 @@ class View {
         }
     }
 
-    // event binding DELETE THIS
-    bindButton(handler) {
-        //this.button.addEventListener('click',handler);
+    // displays listTitle
+    displayListTitle(title) {
+        this.listTitle.textContent=title;
+    }
+
+    // event binding
+    bindListReferences(handler) {
+        for (let listReference of document.querySelectorAll('.sidebar-item')) {
+            listReference.addEventListener('click',() => handler(listReference.dataset.id))
+        }
     }
 }
 
@@ -116,13 +132,21 @@ class Controller {
         // generate default lists
         this.onListsChanged();
 
+        // event binding
+        this.view.bindListReferences(this.handleListClicked.bind(this));
+
         // event binding DELETE THIS
-        this.view.bindButton(this.handleAddCount.bind(this));
+        //this.view.bindButton(this.handleAddCount.bind(this));
         //this.model.bindCountChanged(this.onCountChanged.bind(this));
     }
 
     onListsChanged() {
         this.view.displaySidebar(this.model.getListNames(),this.model.getListIDs());
+    }
+
+    // event handling
+    handleListClicked(id) {
+        this.view.displayListTitle(this.model.getListTitle(id));
     }
 
     // DELETE THIS
