@@ -9,7 +9,7 @@ import CLOCK_ICON from './assets/clock.svg';
 // !!!  REMOVE count, countLabel, button
 
 class List {
-    constructor(name,id,icon) {
+    constructor(name,id,icon=CALENDAR_ICON) {
         this.name=name;
         this.id=id;
         this.icon=icon;
@@ -42,8 +42,17 @@ class Model {
 
     // set methods
 
-    addProject(list) {
-        this.lists.push(list);
+    addProject(name) {
+        const newList = new List(name,this.generateID());
+        this.lists.push(newList);
+        this.onAddProject();
+    }
+
+
+    // event binding
+    
+    bindAddProject(callback) {
+        this.onAddProject = callback;
     }
 
     // get methods
@@ -128,8 +137,8 @@ class View {
         const addProjectModalOptionsContainer = this.createElement('div','add-project-modal-options-container');
         const addProjectModalCancelButton = this.createElement('button','add-project-modal-cancel-button','Cancel');
         addProjectModalCancelButton.addEventListener('click',this.hideModal.bind(this));
-        const addProjectModalAddButton = this.createElement('button','add-project-modal-add-button','Add Project');
-        addProjectModalOptionsContainer.append(addProjectModalCancelButton,addProjectModalAddButton);
+        this.addProjectModalAddButton = this.createElement('button','add-project-modal-add-button','Add Project');
+        addProjectModalOptionsContainer.append(addProjectModalCancelButton,this.addProjectModalAddButton);
 
         const addProjectModalFooter = this.createElement('div','add-project-modal-footer');
 
@@ -159,6 +168,11 @@ class View {
     // view methods
     
     displaySidebar(listNames,listIDs,listIcons) {
+
+        // clear sidebar
+        while (this.sidebar.firstChild) {
+            this.sidebar.removeChild(this.sidebar.firstChild);
+        }
 
         // displays sidebar given a list of item names
         for (let i=0;i<listNames.length;i++) {
@@ -221,6 +235,13 @@ class View {
             listReference.addEventListener('click',() => handler(listReference.dataset.id))
         }
     }
+
+    bindAddProject(handler) {
+        this.addProjectModalAddButton.addEventListener('click',() => {
+            handler(this.addProjectModalNameInput.value);
+            this.hideModal();
+        })
+    }
 }
 
 class Controller {
@@ -233,10 +254,9 @@ class Controller {
 
         // event binding
         this.view.bindListReferences(this.handleListClicked.bind(this));
+        this.view.bindAddProject(this.handleAddProject.bind(this));
 
-        // event binding DELETE THIS
-        //this.view.bindButton(this.handleAddCount.bind(this));
-        //this.model.bindCountChanged(this.onCountChanged.bind(this));
+        this.model.bindAddProject(this.onListsChanged.bind(this));
     }
 
     onListsChanged() {
@@ -249,16 +269,8 @@ class Controller {
         this.view.displayList(this.model.getListItems(id));
     }
 
-    // DELETE THIS
-    // MUST use arrow syntax so `this` is the Controller
-    onCountChanged(count) {
-        this.view.displayCount(count);
-    }
-
-    // DELETE THIS
-    // MUST use arrow syntax so `this` is the Controller
-    handleAddCount() {
-        this.model.add();
+    handleAddProject(name) {
+        this.model.addProject(name);
     }
 }
 
