@@ -35,9 +35,15 @@ body {
 
 .header-home-button {
     height: 30px;
-    margin-left: 22px;
+    margin-left: 2px;
+
+    padding: 0px 20px 0px 20px;
  
     filter: invert(11%) sepia(61%) saturate(4165%) hue-rotate(353deg) brightness(95%) contrast(97%);
+}
+
+.header-home-button:hover {
+    filter: invert(11%) sepia(61%) saturate(4165%) hue-rotate(353deg) brightness(75%) contrast(97%);
 }
 
 .header-spacer {
@@ -46,9 +52,13 @@ body {
 
 .header-add-button {
     height: 30px;
-    margin-right: var(--padding);
+    padding: 0px var(--padding) 0px 20px;
 
     filter: invert(11%) sepia(61%) saturate(4165%) hue-rotate(353deg) brightness(95%) contrast(97%);
+}
+
+.header-add-button:hover {
+    filter: invert(11%) sepia(61%) saturate(4165%) hue-rotate(353deg) brightness(75%) contrast(97%);
 }
 
 .content-container {

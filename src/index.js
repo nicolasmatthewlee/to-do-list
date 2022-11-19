@@ -125,6 +125,7 @@ class View {
         this.homeButton.src = HOME_ICON;
         const headerSpacer = this.createElement('div','header-spacer');
         const addButton = this.createElement('img','header-add-button');
+        addButton.addEventListener('click',this.displayAddItemModal.bind(this));
         addButton.src = ADD_ICON;
         header.append(this.homeButton,headerSpacer,addButton);
 
