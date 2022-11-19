@@ -4,13 +4,15 @@ import './style.css';
 import HOME_ICON from './assets/home.svg';
 import CALENDAR_ICON from './assets/calendar.svg';
 import ADD_ICON from './assets/add.svg';
+import CLOCK_ICON from './assets/clock.svg';
 
 // !!!  REMOVE count, countLabel, button
 
 class List {
-    constructor(name,id) {
+    constructor(name,id,icon) {
         this.name=name;
         this.id=id;
+        this.icon=icon;
         this.items=[];
     }
 
@@ -28,8 +30,9 @@ class Model {
     constructor() {
 
         this.lists=[
-            new List('Today',this.generateID()),
-            new List('Upcoming',this.generateID())];
+            new List('Today',this.generateID(),CALENDAR_ICON),
+            new List('Upcoming',this.generateID(),CLOCK_ICON)
+        ];
     }
 
     generateID() {
@@ -51,6 +54,14 @@ class Model {
             listIDs.push(list.id);
         }
         return listIDs;
+    }
+
+    getListIcons(id) {
+        let listIcons = [];
+        for (let list of this.lists) {
+            listIcons.push(list.icon);
+        }
+        return listIcons;
     }
 
     getListTitle(id) {
@@ -118,7 +129,7 @@ class View {
 
     // view methods
     
-    displaySidebar(listNames,listIDs) {
+    displaySidebar(listNames,listIDs,listIcons) {
         // displays sidebar given a list of item names
         for (let i=0;i<listNames.length;i++) {
             const sidebarItem = this.createElement('button','sidebar-item');
@@ -126,7 +137,7 @@ class View {
             this.sidebar.appendChild(sidebarItem);
 
             const sidebarItemIcon = this.createElement('img','sidebar-item-icon');
-            sidebarItemIcon.src=CALENDAR_ICON;
+            sidebarItemIcon.src=listIcons[i];
             const sidebarItemLabel = this.createElement('div','sidebar-item-label',listNames[i]);
             sidebarItem.append(sidebarItemIcon,sidebarItemLabel);
         }
@@ -174,7 +185,7 @@ class Controller {
     }
 
     onListsChanged() {
-        this.view.displaySidebar(this.model.getListNames(),this.model.getListIDs());
+        this.view.displaySidebar(this.model.getListNames(),this.model.getListIDs(),this.model.getListIcons());
     }
 
     // event handling
