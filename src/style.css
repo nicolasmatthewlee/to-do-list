@@ -27,6 +27,7 @@ body {
     height: var(--header-height);
 
     background-color: var(--red);
+    filter: brightness(110%);
 
     display: flex;
     align-items: center;
