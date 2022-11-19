@@ -40,6 +40,14 @@ class Model {
         return this.IDGenerator;
     }
 
+    // set methods
+
+    addProject(list) {
+        this.lists.push(list);
+    }
+
+    // get methods
+
     getListNames() {
         let listNames = [];
         for (let list of this.lists) {
@@ -106,6 +114,26 @@ class View {
         this.listTitle = this.createElement('div','list-title');
         this.todoList = this.createElement('div','todo-list');
         mainContent.append(this.listTitle,this.todoList);
+
+        // overlay
+        this.overlay = this.createElement('div','overlay');
+        this.overlay.addEventListener('click',this.hideModal.bind(this));
+        this.app.appendChild(this.overlay);
+
+        // add-project modal
+        this.addProjectModal = this.createElement('div','add-project-modal');
+        this.addProjectModalNameInput = this.createElement('input','add-project-modal-name-input');
+        this.addProjectModalNameInput.setAttribute('autofocus','autofocus');
+        this.addProjectModalNameInput.setAttribute('placeholder','Add a Project');
+
+        const addProjectModalOptionsContainer = this.createElement('div','add-project-modal-options-container');
+        const addProjectModalCancelButton = this.createElement('button','add-project-modal-cancel-button','Cancel');
+        addProjectModalCancelButton.addEventListener('click',this.hideModal.bind(this));
+        const addProjectModalAddButton = this.createElement('button','add-project-modal-add-button','Add Project');
+        addProjectModalOptionsContainer.append(addProjectModalCancelButton,addProjectModalAddButton);
+
+        this.addProjectModal.append(this.addProjectModalNameInput,addProjectModalOptionsContainer);
+        this.app.appendChild(this.addProjectModal);
     }
 
     // helper methods
@@ -140,7 +168,19 @@ class View {
         // add project
         const addProjectItem = this.makeSidebarItem('Add Project',null,ADD_ICON);
         addProjectItem.classList.add('add-project');
+        addProjectItem.addEventListener('click',this.displayaddProjectModal.bind(this));
         this.sidebar.appendChild(addProjectItem);
+    }
+
+    displayaddProjectModal() {
+        this.overlay.classList.add('active');
+        this.addProjectModal.classList.add('active');
+    }
+
+    hideModal() {
+        this.overlay.classList.remove('active');
+        this.addProjectModalNameInput.value='';
+        this.addProjectModal.classList.remove('active');
     }
 
     makeSidebarItem(name,id,icon) {

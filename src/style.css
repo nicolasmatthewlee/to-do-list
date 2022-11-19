@@ -2,6 +2,8 @@
     --header-height: 40px;
     --padding: 25px;
 
+    --border-radius: 2px;
+
     --light-gray: rgb(235, 235, 235);
     --green: #32936F;
 
@@ -131,4 +133,96 @@ body {
 
 .list-item {
     padding-left: var(--padding);
+}
+
+/* add project modal */
+
+.add-project-modal {
+    --modal-height: 80px;
+    --modal-width: 300px;
+    height: var(--modal-height);
+    width: var(--modal-width);
+
+    box-sizing: border-box;
+    padding: 10px;
+
+    position: absolute;
+    top: calc(50vh - var(--modal-height) / 2);
+    left: calc(50vw - var(--modal-width) / 2);
+
+    background-color: white;
+
+    visibility: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    border-radius: var(--border-radius);
+    gap: 10px;
+}
+
+.add-project-modal.active {
+    visibility: visible;
+}
+
+.add-project-modal-name-input {
+    height: 40px;
+    font-size: 17px;
+    background-color: white;
+    border: none;
+}
+
+.add-project-modal-name-input:focus {
+    outline: none;
+}
+
+.add-project-modal-options-container {
+    display: flex;
+    gap: 10px;
+
+    justify-content: right;
+}
+
+.add-project-modal-cancel-button {
+    width: 60px;
+    height: 25px;
+    font-size: 12px;
+
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: var(--border-radius);
+}
+
+.add-project-modal-cancel-button:hover {
+    background-color: var(--light-gray);
+}
+
+.add-project-modal-add-button {
+    width: 85px;
+    font-size: 12px;
+
+    color: white;
+    background-color: var(--red);
+    border: 1px solid var(--red);
+    border-radius: var(--border-radius);
+}
+
+.add-project-modal-add-button:hover {
+    filter: brightness(90%);
+}
+
+.overlay {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+
+    background-color: black;
+    opacity: 30%;
+
+    visibility: hidden;
+}
+
+.overlay.active {
+    visibility: visible;
 }
