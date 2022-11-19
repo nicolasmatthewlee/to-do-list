@@ -6,6 +6,8 @@ import CALENDAR_ICON from './assets/calendar.svg';
 import ADD_ICON from './assets/add.svg';
 import CLOCK_ICON from './assets/clock.svg';
 import CIRCLE_ICON from './assets/circle.svg';
+import MENU_ICON from './assets/menu.svg'
+import FLAG_ICON from './assets/flag.svg'
 
 // !!!  REMOVE count, countLabel, button
 
@@ -231,7 +233,14 @@ class View {
             const listItemIcon = this.createElement('img','list-item-icon');
             listItemIcon.src = CIRCLE_ICON;
             const listItemLabel = this.createElement('div','list-item-label',item);
-            listItem.append(listItemIcon,listItemLabel);
+            const listItemSpacer = this.createElement('div','list-item-spacer');
+            const listItemFlag = this.createElement('img','list-item-flag');
+            listItemFlag.src = FLAG_ICON;
+            const listItemMenu = this.createElement('img','list-item-menu');
+            listItemMenu.src = MENU_ICON;
+            const listItemDate = this.createElement('div','list-item-date','00:00 AM');
+            listItemLabel.appendChild(listItemDate);
+            listItem.append(listItemIcon,listItemLabel,listItemSpacer,listItemFlag,listItemMenu);
 
             this.todoList.append(listItem);
         })

@@ -13,7 +13,7 @@
 
     --text-gray: rgb(186, 186, 186);
 
-    --icon-size: 25px;
+    --icon-size: 23px;
 
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -134,16 +134,13 @@ body {
 }
 
 .list-item {
-    padding: 15px 0px 15px 0px;
+    padding: 15px 0px 25px 0px;
     display: flex;
     align-items: center;
 
-    border-bottom: 2.5px solid var(--light-gray);
-}
+    position: relative;
 
-.list-item-icon {
-    height: 23px;
-    filter: invert(100%) sepia(0%) saturate(7494%) hue-rotate(148deg) brightness(79%) contrast(78%);
+    border-bottom: 2.5px solid var(--light-gray);
 }
 
 .list-item-label {
@@ -151,6 +148,26 @@ body {
 
     font-weight: 400;
     font-size: 17px;
+}
+
+.list-item-icon , .list-item-menu , .list-item-flag {
+    height: 23px;
+    filter: invert(100%) sepia(0%) saturate(7494%) hue-rotate(148deg) brightness(79%) contrast(78%);
+}
+
+.list-item-spacer {
+    flex: 1;
+}
+
+.list-item-flag {
+    margin-right: 10px;
+}
+
+.list-item-date {
+    position: absolute;
+    bottom: 10px;
+
+    font-size: 12px;
 }
 
 /* add project modal */
