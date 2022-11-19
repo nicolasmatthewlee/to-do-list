@@ -121,12 +121,12 @@ class View {
         this.app = this.getElement('body');
 
         const header = this.createElement('div','header');
-        const homeButton = this.createElement('img','header-home-button');
-        homeButton.src = HOME_ICON;
+        this.homeButton = this.createElement('img','header-home-button');
+        this.homeButton.src = HOME_ICON;
         const headerSpacer = this.createElement('div','header-spacer');
         const addButton = this.createElement('img','header-add-button');
         addButton.src = ADD_ICON;
-        header.append(homeButton,headerSpacer,addButton);
+        header.append(this.homeButton,headerSpacer,addButton);
 
         const contentContainer = this.createElement('div','content-container');
         this.sidebar = this.createElement('div','sidebar');
@@ -298,6 +298,10 @@ class View {
 
     // event binding
 
+    bindHomeButton(handler) {
+        this.homeButton.addEventListener('click',handler);
+    }
+
     bindListReferences(handler) {
         for (let listReference of document.querySelectorAll('.sidebar-item:not(.add-project)')) {
             listReference.addEventListener('click',() => handler(listReference.dataset.id))
@@ -328,6 +332,7 @@ class Controller {
         this.onListsChanged(0);
 
         // event binding
+        this.view.bindHomeButton(this.handleHomeButtonClicked.bind(this));
         this.view.bindAddProject(this.handleAddProject.bind(this));
         this.view.bindAddItem(this.handleAddItem.bind(this));
 
@@ -342,6 +347,10 @@ class Controller {
     }
 
     // event handling
+    handleHomeButtonClicked() {
+        this.handleListClicked(0);
+    }
+
     handleListClicked(id) {
         this.view.displayListTitle(this.model.getListTitle(id));
         this.view.displayList(this.model.getListItems(id));
