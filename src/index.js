@@ -19,8 +19,8 @@ class List {
         this.items=[];
     }
 
-    add(todo) {
-        this.items.push(todo);
+    add(item) {
+        this.items.push(item);
     }
 }
 
@@ -29,6 +29,7 @@ class List {
 class Model {
 
     IDGenerator=-1;
+    openedList=0;
 
     constructor() {
 
@@ -51,11 +52,23 @@ class Model {
         this.onAddProject();
     }
 
+    addItem(item,listID) {
+        for (let list of this.lists) {
+            if (list.id==listID) {
+                list.add(item);
+            }
+        }
+        this.onAddItem(listID);
+    }
 
     // event binding
     
     bindAddProject(callback) {
         this.onAddProject = callback;
+    }
+
+    bindAddItem(callback) {
+        this.onAddItem = callback;
     }
 
     // get methods
@@ -299,7 +312,10 @@ class View {
     }
 
     bindAddItem(handler) {
-
+        this.addItemModalAddButton.addEventListener('click', () => {
+            handler(this.addItemModalNameInput.value);
+            this.hideModal();
+        })
     }
 }
 
@@ -312,9 +328,11 @@ class Controller {
         this.onListsChanged();
 
         // event binding
-        
         this.view.bindAddProject(this.handleAddProject.bind(this));
+        this.view.bindAddItem(this.handleAddItem.bind(this));
+
         this.model.bindAddProject(this.onListsChanged.bind(this));
+        this.model.bindAddItem(this.handleListClicked.bind(this));
     }
 
     onListsChanged() {
@@ -326,10 +344,15 @@ class Controller {
     handleListClicked(id) {
         this.view.displayListTitle(this.model.getListTitle(id));
         this.view.displayList(this.model.getListItems(id));
+        this.model.openedList=id;
     }
 
     handleAddProject(name) {
         this.model.addProject(name);
+    }
+
+    handleAddItem(item) {
+        this.model.addItem(item,this.model.openedList);
     }
 
 }
