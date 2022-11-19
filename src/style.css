@@ -107,32 +107,50 @@ body {
     filter: invert(86%) sepia(3%) saturate(5%) hue-rotate(314deg) brightness(87%) contrast(90%);
 }
 
-/* todos */
+/* main content */
 
 .main-content {
     flex: 1;
 
     display: flex;
     flex-direction: column;
-    gap: var(--padding);
+    gap: 15px;
 }
 
 .list-title {
-    padding: var(--padding) 0px 0px var(--padding);
+    padding: 40px 0px 0px 40px;
 
-    font-size: 30px;
+    font-size: 21px;
     font-weight: 500;
 }
 
 .todo-list {
+    margin-left: 40px;
+    margin-right: 40px;
+    
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--padding);
 }
 
 .list-item {
-    padding-left: var(--padding);
+    padding: 15px 0px 15px 0px;
+    display: flex;
+    align-items: center;
+
+    border-bottom: 2.5px solid var(--light-gray);
+}
+
+.list-item-icon {
+    height: 23px;
+    filter: invert(100%) sepia(0%) saturate(7494%) hue-rotate(148deg) brightness(79%) contrast(78%);
+}
+
+.list-item-label {
+    margin-left: 10px;
+
+    font-weight: 400;
+    font-size: 17px;
 }
 
 /* add project modal */

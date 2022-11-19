@@ -5,6 +5,7 @@ import HOME_ICON from './assets/home.svg';
 import CALENDAR_ICON from './assets/calendar.svg';
 import ADD_ICON from './assets/add.svg';
 import CLOCK_ICON from './assets/clock.svg';
+import CIRCLE_ICON from './assets/circle.svg';
 
 // !!!  REMOVE count, countLabel, button
 
@@ -217,14 +218,22 @@ class View {
     }
 
     displayList(items) {
-        // clear todos
+
+        // clear items
         while (this.todoList.firstChild) {
             this.todoList.removeChild(this.todoList.firstChild);
         }
 
+        // display items
         items.forEach(item => {
-            const itemNode = this.createElement('div','list-item',item);
-            this.todoList.append(itemNode);
+            const listItem = this.createElement('div','list-item');
+
+            const listItemIcon = this.createElement('img','list-item-icon');
+            listItemIcon.src = CIRCLE_ICON;
+            const listItemLabel = this.createElement('div','list-item-label',item);
+            listItem.append(listItemIcon,listItemLabel);
+
+            this.todoList.append(listItem);
         })
     }
 
@@ -279,3 +288,6 @@ const app = new Controller(new Model(), new View());
 // for testing (DELETE THIS)
 app.model.lists[0].add('pick up groceries');
 app.model.lists[0].add('go to the store');
+
+// show first project
+app.handleListClicked(0);
