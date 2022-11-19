@@ -131,7 +131,9 @@ class View {
         const addProjectModalAddButton = this.createElement('button','add-project-modal-add-button','Add Project');
         addProjectModalOptionsContainer.append(addProjectModalCancelButton,addProjectModalAddButton);
 
-        this.addProjectModal.append(this.addProjectModalNameInput,addProjectModalOptionsContainer);
+        const addProjectModalFooter = this.createElement('div','add-project-modal-footer');
+
+        this.addProjectModal.append(this.addProjectModalNameInput,addProjectModalOptionsContainer,addProjectModalFooter);
         this.app.appendChild(this.addProjectModal);
     }
 

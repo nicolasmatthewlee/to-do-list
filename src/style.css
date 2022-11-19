@@ -138,13 +138,14 @@ body {
 /* add project modal */
 
 .add-project-modal {
-    --modal-height: 80px;
+    --modal-height: 95px;
     --modal-width: 300px;
     height: var(--modal-height);
     width: var(--modal-width);
 
     box-sizing: border-box;
     padding: 10px;
+    padding-bottom: 25px;
 
     position: absolute;
     top: calc(50vh - var(--modal-height) / 2);
@@ -159,6 +160,8 @@ body {
 
     border-radius: var(--border-radius);
     gap: 10px;
+
+    box-shadow: 2px 2px 5px 2px gray;
 }
 
 .add-project-modal.active {
@@ -210,6 +213,19 @@ body {
 .add-project-modal-add-button:hover {
     filter: brightness(90%);
 }
+
+.add-project-modal-footer {
+    height: 15px;
+    width: 100%;
+
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+
+    background-color: var(--light-gray);
+}
+
+/* overlay */
 
 .overlay {
     height: 100vh;
