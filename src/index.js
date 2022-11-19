@@ -147,6 +147,22 @@ class View {
 
         this.addProjectModal.append(this.addProjectModalNameInput,addProjectModalOptionsContainer,addProjectModalFooter);
         this.app.appendChild(this.addProjectModal);
+
+        // add-item modal
+        this.addItemModal = this.createElement('div','add-item-modal');
+        this.addItemModalNameInput = this.createElement('input','add-item-modal-name-input');
+        this.addItemModalNameInput.setAttribute('placeholder','Add an Item');
+
+        const addItemModalOptionsContainer = this.createElement('div','add-item-modal-options-container');
+        const addItemModalCancelButton = this.createElement('button','add-item-modal-cancel-button','Cancel');
+        addItemModalCancelButton.addEventListener('click',this.hideModal.bind(this));
+        this.addItemModalAddButton = this.createElement('button','add-item-modal-add-button','Add Item');
+        addItemModalOptionsContainer.append(addItemModalCancelButton,this.addItemModalAddButton);
+
+        const addItemModalFooter = this.createElement('div','add-item-modal-footer');
+
+        this.addItemModal.append(this.addItemModalNameInput,addItemModalOptionsContainer,addItemModalFooter);
+        this.app.appendChild(this.addItemModal);
     }
 
     // helper methods
@@ -186,21 +202,33 @@ class View {
         // add project
         const addProjectItem = this.makeSidebarItem('Add Project',null,ADD_ICON);
         addProjectItem.classList.add('add-project');
-        addProjectItem.addEventListener('click',this.displayaddProjectModal.bind(this));
+        addProjectItem.addEventListener('click',this.displayAddProjectModal.bind(this));
         this.sidebar.appendChild(addProjectItem);
     }
 
-    displayaddProjectModal() {
+    displayAddProjectModal() {
         this.overlay.classList.add('active');
         this.addProjectModal.classList.add('active');
 
         this.addProjectModalNameInput.focus();
     }
 
+    displayAddItemModal() {
+        this.overlay.classList.add('active');
+        this.addItemModal.classList.add('active');
+
+        this.addItemModalNameInput.focus();
+    }
+
     hideModal() {
+        // used to reset and hide all modals
         this.overlay.classList.remove('active');
+
         this.addProjectModalNameInput.value='';
         this.addProjectModal.classList.remove('active');
+
+        this.addItemModalNameInput.value='';
+        this.addItemModal.classList.remove('active')
     }
 
     makeSidebarItem(name,id,icon) {
@@ -247,6 +275,7 @@ class View {
 
         // add item
         const addListItem = this.createElement('button','add-list-item');
+        addListItem.addEventListener('click',this.displayAddItemModal.bind(this));
         const addListItemIcon = this.createElement('img','add-list-item-icon');
         addListItemIcon.src = ADD_ICON;
         const addListItemLabel = this.createElement('div','add-list-item-label','Add Item');
@@ -267,6 +296,10 @@ class View {
             handler(this.addProjectModalNameInput.value);
             this.hideModal();
         })
+    }
+
+    bindAddItem(handler) {
+
     }
 }
 
@@ -298,6 +331,7 @@ class Controller {
     handleAddProject(name) {
         this.model.addProject(name);
     }
+
 }
 
 const app = new Controller(new Model(), new View());

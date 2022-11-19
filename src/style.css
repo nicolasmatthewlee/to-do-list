@@ -207,7 +207,7 @@ body {
 
 /* add project modal */
 
-.add-project-modal {
+.add-project-modal , .add-item-modal {
     --modal-height: 95px;
     --modal-width: 300px;
     height: var(--modal-height);
@@ -234,7 +234,7 @@ body {
     box-shadow: 2px 2px 5px 2px gray;
 }
 
-.add-project-modal.active {
+.add-project-modal.active , .add-item-modal.active {
     visibility: visible;
 }
 
