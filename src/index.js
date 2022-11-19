@@ -253,14 +253,14 @@ class Controller {
         this.onListsChanged();
 
         // event binding
-        this.view.bindListReferences(this.handleListClicked.bind(this));
+        
         this.view.bindAddProject(this.handleAddProject.bind(this));
-
         this.model.bindAddProject(this.onListsChanged.bind(this));
     }
 
     onListsChanged() {
         this.view.displaySidebar(this.model.getListNames(),this.model.getListIDs(),this.model.getListIcons());
+        this.view.bindListReferences(this.handleListClicked.bind(this));
     }
 
     // event handling
