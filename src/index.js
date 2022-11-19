@@ -130,17 +130,29 @@ class View {
     // view methods
     
     displaySidebar(listNames,listIDs,listIcons) {
+
         // displays sidebar given a list of item names
         for (let i=0;i<listNames.length;i++) {
-            const sidebarItem = this.createElement('button','sidebar-item');
-            sidebarItem.dataset.id = listIDs[i];
-            this.sidebar.appendChild(sidebarItem);
-
-            const sidebarItemIcon = this.createElement('img','sidebar-item-icon');
-            sidebarItemIcon.src=listIcons[i];
-            const sidebarItemLabel = this.createElement('div','sidebar-item-label',listNames[i]);
-            sidebarItem.append(sidebarItemIcon,sidebarItemLabel);
+            const sidebarItem = this.makeSidebarItem(listNames[i],listIDs[i],listIcons[i])
+            this.sidebar.appendChild(sidebarItem); 
         }
+
+        // add project
+        const addProjectItem = this.makeSidebarItem('Add Project',null,ADD_ICON);
+        addProjectItem.classList.add('add-project');
+        this.sidebar.appendChild(addProjectItem);
+    }
+
+    makeSidebarItem(name,id,icon) {
+        const sidebarItem = this.createElement('button','sidebar-item');
+        sidebarItem.dataset.id = id;
+
+        const sidebarItemIcon = this.createElement('img','sidebar-item-icon');
+        sidebarItemIcon.src=icon;
+        const sidebarItemLabel = this.createElement('div','sidebar-item-label',name);
+        sidebarItem.append(sidebarItemIcon,sidebarItemLabel);
+
+        return sidebarItem;
     }
 
     displayListTitle(title) {
@@ -162,7 +174,7 @@ class View {
     // event binding
 
     bindListReferences(handler) {
-        for (let listReference of document.querySelectorAll('.sidebar-item')) {
+        for (let listReference of document.querySelectorAll('.sidebar-item:not(.add-project)')) {
             listReference.addEventListener('click',() => handler(listReference.dataset.id))
         }
     }
