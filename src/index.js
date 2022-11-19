@@ -49,7 +49,7 @@ class Model {
     addProject(name) {
         const newList = new List(name,this.generateID());
         this.lists.push(newList);
-        this.onAddProject();
+        this.onAddProject(newList.id);
     }
 
     addItem(item,listID) {
@@ -325,7 +325,7 @@ class Controller {
         this.view=view;
 
         // generate default lists
-        this.onListsChanged();
+        this.onListsChanged(0);
 
         // event binding
         this.view.bindAddProject(this.handleAddProject.bind(this));
@@ -335,9 +335,10 @@ class Controller {
         this.model.bindAddItem(this.handleListClicked.bind(this));
     }
 
-    onListsChanged() {
+    onListsChanged(newProjectID) {
         this.view.displaySidebar(this.model.getListNames(),this.model.getListIDs(),this.model.getListIcons());
         this.view.bindListReferences(this.handleListClicked.bind(this));
+        this.handleListClicked(newProjectID);
     }
 
     // event handling
