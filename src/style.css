@@ -170,6 +170,40 @@ body {
     font-size: 12px;
 }
 
+.add-list-item {
+    height: 40px;
+    
+    padding: 10px 0px 10px 0px;
+
+    display: flex;
+    align-items: center;
+
+    background-color: white;
+    border: none;
+}
+
+.add-list-item-icon {
+    height: 23px;
+    filter: invert(86%) sepia(3%) saturate(5%) hue-rotate(314deg) brightness(87%) contrast(90%);
+}
+
+.add-list-item:hover>.add-list-item-icon {
+    filter: invert(44%) sepia(41%) saturate(1044%) hue-rotate(316deg) brightness(79%) contrast(103%);
+}
+
+.add-list-item-label {
+    margin-left: 10px;
+    
+    color: var(--text-gray);
+
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.add-list-item:hover>.add-list-item-label {
+    color: var(--red);
+}
+
 /* add project modal */
 
 .add-project-modal {

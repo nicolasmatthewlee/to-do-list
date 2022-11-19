@@ -244,6 +244,14 @@ class View {
 
             this.todoList.append(listItem);
         })
+
+        // add item
+        const addListItem = this.createElement('button','add-list-item');
+        const addListItemIcon = this.createElement('img','add-list-item-icon');
+        addListItemIcon.src = ADD_ICON;
+        const addListItemLabel = this.createElement('div','add-list-item-label','Add Item');
+        addListItem.append(addListItemIcon,addListItemLabel);
+        this.todoList.appendChild(addListItem);
     }
 
     // event binding
