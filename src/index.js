@@ -123,7 +123,6 @@ class View {
         // add-project modal
         this.addProjectModal = this.createElement('div','add-project-modal');
         this.addProjectModalNameInput = this.createElement('input','add-project-modal-name-input');
-        this.addProjectModalNameInput.setAttribute('autofocus','autofocus');
         this.addProjectModalNameInput.setAttribute('placeholder','Add a Project');
 
         const addProjectModalOptionsContainer = this.createElement('div','add-project-modal-options-container');
@@ -175,6 +174,8 @@ class View {
     displayaddProjectModal() {
         this.overlay.classList.add('active');
         this.addProjectModal.classList.add('active');
+
+        this.addProjectModalNameInput.focus();
     }
 
     hideModal() {
