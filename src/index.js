@@ -389,8 +389,8 @@ class Controller {
 const app = new Controller(new Model(), new View());
 
 // for testing (DELETE THIS)
-app.model.lists[0].add('pick up groceries');
-app.model.lists[0].add('go to the store');
+app.model.lists[0].add(new ListItem('pick up groceries','2022-11-29T12:11',true));
+app.model.lists[0].add(new ListItem('go to the store','2022-11-29T12:11',false));
 
 // show first project
 app.handleListClicked(0);
