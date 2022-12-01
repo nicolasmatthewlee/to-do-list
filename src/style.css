@@ -247,8 +247,6 @@ body {
 /* add-item-modal */
 
 .add-item-modal {
-    visibility: visible; /* delete this */
-
     height: 200px;
 }
 

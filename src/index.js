@@ -10,10 +10,10 @@ import MENU_ICON from './assets/menu.svg'
 import FLAG_ICON from './assets/flag.svg'
 
 class ListItem {
-    constructor(name,date,flagged) {
+    constructor(name,datetime,flag) {
         this.name=name;
-        this.date=date;
-        this.flagged=flagged;
+        this.datetime=datetime;
+        this.flag=flag;
     }
 }
 
@@ -58,10 +58,10 @@ class Model {
         this.onAddProject(newList.id);
     }
 
-    addItem(item,listID) {
+    addItem(name,datetime,flag,listID) {
         for (let list of this.lists) {
             if (list.id==listID) {
-                list.add(item);
+                list.add(new ListItem(name,datetime,flag));
             }
         }
         this.onAddItem(listID);
@@ -289,13 +289,16 @@ class View {
 
             const listItemIcon = this.createElement('img','list-item-icon');
             listItemIcon.src = CIRCLE_ICON;
-            const listItemLabel = this.createElement('div','list-item-label',item);
+            const listItemLabel = this.createElement('div','list-item-label',item.name);
             const listItemSpacer = this.createElement('div','list-item-spacer');
             const listItemFlag = this.createElement('img','list-item-flag');
             listItemFlag.src = FLAG_ICON;
+            if (item.flag) {
+                listItem.classList.add('active');
+            }
             const listItemMenu = this.createElement('img','list-item-menu');
             listItemMenu.src = MENU_ICON;
-            const listItemDate = this.createElement('div','list-item-date','00:00 AM');
+            const listItemDate = this.createElement('div','list-item-date',item.datetime);
             listItemLabel.appendChild(listItemDate);
             listItem.append(listItemIcon,listItemLabel,listItemSpacer,listItemFlag,listItemMenu);
 
@@ -333,7 +336,7 @@ class View {
 
     bindAddItem(handler) {
         this.addItemModalAddButton.addEventListener('click', () => {
-            handler(this.addItemModalNameInput.value);
+            handler(this.addItemModalNameInput.value,this.addItemModalDateInput.value,this.addItemModalFlagInput.value);
             this.hideModal();
         })
     }
@@ -377,8 +380,8 @@ class Controller {
         this.model.addProject(name);
     }
 
-    handleAddItem(item) {
-        this.model.addItem(item,this.model.openedList);
+    handleAddItem(name,datetime,flag) {
+        this.model.addItem(name,datetime,flag,this.model.openedList);
     }
 
 }
