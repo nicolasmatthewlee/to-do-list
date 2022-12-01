@@ -9,7 +9,13 @@ import CIRCLE_ICON from './assets/circle.svg';
 import MENU_ICON from './assets/menu.svg'
 import FLAG_ICON from './assets/flag.svg'
 
-// !!!  REMOVE count, countLabel, button
+class ListItem {
+    constructor(name,date,flagged) {
+        this.name=name;
+        this.date=date;
+        this.flagged=flagged;
+    }
+}
 
 class List {
     constructor(name,id,icon=CALENDAR_ICON) {
@@ -167,6 +173,15 @@ class View {
         this.addItemModalNameInput = this.createElement('input','add-item-modal-name-input');
         this.addItemModalNameInput.setAttribute('placeholder','Add an Item');
 
+        this.addItemModalDateInput = this.createElement('input','add-item-modal-date-input');
+        this.addItemModalDateInput.setAttribute('type','datetime-local');
+
+        const addItemModalFlagContainer = this.createElement('div','add-item-modal-flag-container');
+        const addItemModalFlagLabel = this.createElement('div','add-item-modal-flag-label','Flag');
+        this.addItemModalFlagInput = this.createElement('input','add-item-modal-flag-input');
+        this.addItemModalFlagInput.setAttribute('type','checkbox');
+        addItemModalFlagContainer.append(this.addItemModalFlagInput,addItemModalFlagLabel);
+
         const addItemModalOptionsContainer = this.createElement('div','add-item-modal-options-container');
         const addItemModalCancelButton = this.createElement('button','add-item-modal-cancel-button','Cancel');
         addItemModalCancelButton.addEventListener('click',this.hideModal.bind(this));
@@ -175,7 +190,7 @@ class View {
 
         const addItemModalFooter = this.createElement('div','add-item-modal-footer');
 
-        this.addItemModal.append(this.addItemModalNameInput,addItemModalOptionsContainer,addItemModalFooter);
+        this.addItemModal.append(this.addItemModalNameInput,this.addItemModalDateInput,addItemModalFlagContainer,addItemModalOptionsContainer,addItemModalFooter);
         this.app.appendChild(this.addItemModal);
     }
 

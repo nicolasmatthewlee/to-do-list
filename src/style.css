@@ -215,7 +215,7 @@ body {
     color: var(--red);
 }
 
-/* add project modal */
+/* add item, project modals */
 
 .add-project-modal , .add-item-modal {
     --modal-height: 95px;
@@ -243,6 +243,30 @@ body {
 
     box-shadow: 2px 2px 5px 2px gray;
 }
+
+/* add-item-modal */
+
+.add-item-modal {
+    visibility: visible; /* delete this */
+
+    height: 200px;
+}
+
+.add-item-modal-name-input , .add-item-modal-date-input {
+    height: 20px;
+}
+
+.add-item-modal-flag-container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.add-item-modal-flag-label {
+    font-size: 15px;
+}
+
+/* add-project-modal */
 
 .add-project-modal.active , .add-item-modal.active {
     visibility: visible;
