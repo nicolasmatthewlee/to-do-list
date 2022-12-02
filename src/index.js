@@ -212,6 +212,13 @@ class View {
 
         this.addItemModal.append(this.addItemModalNameInput,this.addItemModalDateInput,addItemModalFlagContainer,addItemModalOptionsContainer,addItemModalFooter);
         this.app.appendChild(this.addItemModal);
+
+        // item modal
+        this.itemModal = this.createElement('div','item-modal');
+        this.app.appendChild(this.itemModal);
+        this.deleteItemButton = this.createElement('button','item-modal-delete-button');
+        this.deleteItemButton.textContent='Delete Item'
+        this.itemModal.append(this.deleteItemButton);
     }
 
     // helper methods

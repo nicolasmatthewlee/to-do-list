@@ -221,7 +221,7 @@ body {
 
 /* add item, project modals */
 
-.add-project-modal , .add-item-modal {
+.add-project-modal , .add-item-modal , .item-modal {
     --modal-height: 95px;
     --modal-width: 300px;
     height: var(--modal-height);
@@ -270,7 +270,7 @@ body {
 
 /* add-project-modal */
 
-.add-project-modal.active , .add-item-modal.active {
+.add-project-modal.active , .add-item-modal.active , .item-modal.active {
     visibility: visible;
 }
 
@@ -329,6 +329,12 @@ body {
     left: 0px;
 
     background-color: var(--light-gray);
+}
+
+/* item modal */
+
+.item-modal-delete-button {
+    height: 50px;
 }
 
 /* overlay */
