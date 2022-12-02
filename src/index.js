@@ -216,9 +216,15 @@ class View {
         // item modal
         this.itemModal = this.createElement('div','item-modal');
         this.app.appendChild(this.itemModal);
-        this.deleteItemButton = this.createElement('button','item-modal-delete-button');
-        this.deleteItemButton.textContent='Delete Item'
-        this.itemModal.append(this.deleteItemButton);
+
+        const itemModalOptionsContainer = this.createElement('div','item-modal-options-container');
+        const itemModalCancelButton = this.createElement('button','item-modal-cancel-button');
+        itemModalCancelButton.textContent='Cancel';
+        itemModalCancelButton.addEventListener('click',this.hideModal.bind(this));
+        const deleteItemButton = this.createElement('button','item-modal-delete-button');
+        deleteItemButton.textContent='Delete Item';
+        itemModalOptionsContainer.append(itemModalCancelButton,deleteItemButton);
+        this.itemModal.append(itemModalOptionsContainer);
     }
 
     // helper methods
@@ -276,6 +282,11 @@ class View {
         this.addItemModalNameInput.focus();
     }
 
+    displayItemModal() {
+        this.overlay.classList.add('active');
+        this.itemModal.classList.add('active');
+    }
+
     hideModal() {
         // used to reset and hide all modals
         this.overlay.classList.remove('active');
@@ -284,7 +295,9 @@ class View {
         this.addProjectModal.classList.remove('active');
 
         this.addItemModalNameInput.value='';
-        this.addItemModal.classList.remove('active')
+        this.addItemModal.classList.remove('active');
+
+        this.itemModal.classList.remove('active');
     }
 
     makeSidebarItem(name,id,icon) {
@@ -331,6 +344,7 @@ class View {
             }
             const listItemMenu = this.createElement('img','list-item-menu');
             listItemMenu.src = MENU_ICON;
+            listItemMenu.addEventListener('click',this.displayItemModal.bind(this));
             const listItemDate = this.createElement('div','list-item-date',item.datetime);
             listItemLabel.appendChild(listItemDate);
             listItem.append(listItemIcon,listItemLabel,listItemSpacer,listItemFlag,listItemMenu);

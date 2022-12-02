@@ -333,8 +333,13 @@ body {
 
 /* item modal */
 
-.item-modal-delete-button {
-    height: 50px;
+.item-modal-options-container {
+    display: flex;
+    gap: 10px;
+}
+
+.item-modal-cancel-button , .item-modal-delete-button {
+    height: 25px;
 }
 
 /* overlay */
