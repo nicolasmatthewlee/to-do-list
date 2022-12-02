@@ -67,6 +67,15 @@ class Model {
         this.onAddItem(listID);
     }
 
+    toggleFlag(listID,itemIndex) {
+        for (let list of this.lists) {
+            if (list.id==listID) {
+                list.items[itemIndex].flag=!list.items[itemIndex].flag;
+            }
+        }
+        this.onAddItem(listID);
+    }
+
     // event binding
     
     bindAddProject(callback) {
@@ -283,6 +292,9 @@ class View {
             this.todoList.removeChild(this.todoList.firstChild);
         }
 
+        // index
+        let n=0;
+
         // display items
         items.forEach(item => {
             const listItem = this.createElement('div','list-item');
@@ -293,6 +305,7 @@ class View {
             const listItemSpacer = this.createElement('div','list-item-spacer');
             const listItemFlag = this.createElement('img','list-item-flag');
             listItemFlag.src = FLAG_ICON;
+            listItemFlag.setAttribute('data-index',n);
             if (item.flag) {
                 listItemFlag.classList.add('active');
             }
@@ -303,6 +316,8 @@ class View {
             listItem.append(listItemIcon,listItemLabel,listItemSpacer,listItemFlag,listItemMenu);
 
             this.todoList.append(listItem);
+
+            n++;
         })
 
         // add item
@@ -340,6 +355,12 @@ class View {
             this.hideModal();
         })
     }
+
+    bindFlags(handler) {
+        for (let flag of document.querySelectorAll('.list-item-flag')) {
+            flag.addEventListener('click',() => handler(flag.dataset.index))
+        }
+    }
 }
 
 class Controller {
@@ -373,6 +394,7 @@ class Controller {
     handleListClicked(id) {
         this.view.displayListTitle(this.model.getListTitle(id));
         this.view.displayList(this.model.getListItems(id));
+        this.view.bindFlags(this.handleToggleFlag.bind(this));
         this.model.openedList=id;
     }
 
@@ -382,6 +404,10 @@ class Controller {
 
     handleAddItem(name,datetime,flag) {
         this.model.addItem(name,datetime,flag,this.model.openedList);
+    }
+
+    handleToggleFlag(itemIndex) {
+        this.model.toggleFlag(this.model.openedList,itemIndex);
     }
 
 }
