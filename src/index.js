@@ -305,6 +305,8 @@ class View {
         this.addProjectModal.classList.remove('active');
 
         this.addItemModalNameInput.value='';
+        this.addItemModalDateInput.value='';
+        this.addItemModalFlagInput.checked=false;
         this.addItemModal.classList.remove('active');
 
         this.itemModal.classList.remove('active');
