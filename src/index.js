@@ -438,6 +438,7 @@ class Controller {
 
         this.model.bindAddProject(this.onListsChanged.bind(this));
         this.model.bindAddItem(this.handleListClicked.bind(this));
+        this.view.bindDeleteItem(this.handleDeleteItem.bind(this));
     }
 
     onListsChanged(newProjectID) {
@@ -456,7 +457,6 @@ class Controller {
         this.view.displayList(this.model.getListItems(id));
         this.view.bindFlags(this.handleToggleFlag.bind(this));
         this.view.bindCheckboxes(this.handleToggleCheckbox.bind(this));
-        this.view.bindDeleteItem(this.handleDeleteItem.bind(this));
         this.model.openedList=id;
     }
 
