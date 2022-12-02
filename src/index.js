@@ -87,6 +87,15 @@ class Model {
         this.onAddItem(listID)
     }
 
+    deleteItem(listID,itemIndex) {
+        for (let list of this.lists) {
+            if (list.id==listID) {
+                list.items.splice(itemIndex,1);
+            }
+        }
+        this.onAddItem(listID)
+    }
+
     // event binding
     
     bindAddProject(callback) {
@@ -221,9 +230,9 @@ class View {
         const itemModalCancelButton = this.createElement('button','item-modal-cancel-button');
         itemModalCancelButton.textContent='Cancel';
         itemModalCancelButton.addEventListener('click',this.hideModal.bind(this));
-        const deleteItemButton = this.createElement('button','item-modal-delete-button');
-        deleteItemButton.textContent='Delete Item';
-        itemModalOptionsContainer.append(itemModalCancelButton,deleteItemButton);
+        this.deleteItemButton = this.createElement('button','item-modal-delete-button');
+        this.deleteItemButton.textContent='Delete Item';
+        itemModalOptionsContainer.append(itemModalCancelButton,this.deleteItemButton);
         this.itemModal.append(itemModalOptionsContainer);
     }
 
@@ -282,9 +291,10 @@ class View {
         this.addItemModalNameInput.focus();
     }
 
-    displayItemModal() {
+    displayItemModal(index) {
         this.overlay.classList.add('active');
         this.itemModal.classList.add('active');
+        this.itemModal.setAttribute('data-index',index)
     }
 
     hideModal() {
@@ -344,7 +354,8 @@ class View {
             }
             const listItemMenu = this.createElement('img','list-item-menu');
             listItemMenu.src = MENU_ICON;
-            listItemMenu.addEventListener('click',this.displayItemModal.bind(this));
+            let index=n; // necessary as parameters of a function are passed by reference
+            listItemMenu.addEventListener('click',() => {this.displayItemModal(index)});
             const listItemDate = this.createElement('div','list-item-date',item.datetime);
             listItemLabel.appendChild(listItemDate);
             listItem.append(listItemIcon,listItemLabel,listItemSpacer,listItemFlag,listItemMenu);
@@ -386,6 +397,13 @@ class View {
     bindAddItem(handler) {
         this.addItemModalAddButton.addEventListener('click', () => {
             handler(this.addItemModalNameInput.value,this.addItemModalDateInput.value,this.addItemModalFlagInput.checked);
+            this.hideModal();
+        })
+    }
+
+    bindDeleteItem(handler) {
+        this.deleteItemButton.addEventListener('click',() => {
+            handler(this.itemModal.dataset.index)
             this.hideModal();
         })
     }
@@ -436,6 +454,7 @@ class Controller {
         this.view.displayList(this.model.getListItems(id));
         this.view.bindFlags(this.handleToggleFlag.bind(this));
         this.view.bindCheckboxes(this.handleToggleCheckbox.bind(this));
+        this.view.bindDeleteItem(this.handleDeleteItem.bind(this));
         this.model.openedList=id;
     }
 
@@ -453,6 +472,10 @@ class Controller {
 
     handleToggleCheckbox(itemIndex) {
         this.model.toggleCheckbox(this.model.openedList,itemIndex);
+    }
+
+    handleDeleteItem(itemIndex) {
+        this.model.deleteItem(this.model.openedList,itemIndex);
     }
 
 }
