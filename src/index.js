@@ -6,6 +6,7 @@ import CALENDAR_ICON from './assets/calendar.svg';
 import ADD_ICON from './assets/add.svg';
 import CLOCK_ICON from './assets/clock.svg';
 import CIRCLE_ICON from './assets/circle.svg';
+import CIRCLE_CHECKED_ICON from './assets/circle_checked.svg';
 import MENU_ICON from './assets/menu.svg'
 import FLAG_ICON from './assets/flag.svg'
 
@@ -14,6 +15,7 @@ class ListItem {
         this.name=name;
         this.datetime=datetime;
         this.flag=flag;
+        this.checked=false;
     }
 }
 
@@ -74,6 +76,15 @@ class Model {
             }
         }
         this.onAddItem(listID);
+    }
+
+    toggleCheckbox(listID,itemIndex) {
+        for (let list of this.lists) {
+            if (list.id==listID) {
+                list.items[itemIndex].checked=!list.items[itemIndex].checked;
+            }
+        }
+        this.onAddItem(listID)
     }
 
     // event binding
@@ -300,7 +311,9 @@ class View {
             const listItem = this.createElement('div','list-item');
 
             const listItemIcon = this.createElement('img','list-item-icon');
-            listItemIcon.src = CIRCLE_ICON;
+            listItemIcon.setAttribute('data-index',n);
+            item.checked? listItemIcon.src = CIRCLE_CHECKED_ICON : listItemIcon.src = CIRCLE_ICON ;
+
             const listItemLabel = this.createElement('div','list-item-label',item.name);
             const listItemSpacer = this.createElement('div','list-item-spacer');
             const listItemFlag = this.createElement('img','list-item-flag');
@@ -361,6 +374,12 @@ class View {
             flag.addEventListener('click',() => handler(flag.dataset.index))
         }
     }
+
+    bindCheckboxes(handler) {
+        for (let checkbox of document.querySelectorAll('.list-item-icon')) {
+            checkbox.addEventListener('click',() => handler(checkbox.dataset.index))
+        }
+    }
 }
 
 class Controller {
@@ -395,6 +414,7 @@ class Controller {
         this.view.displayListTitle(this.model.getListTitle(id));
         this.view.displayList(this.model.getListItems(id));
         this.view.bindFlags(this.handleToggleFlag.bind(this));
+        this.view.bindCheckboxes(this.handleToggleCheckbox.bind(this));
         this.model.openedList=id;
     }
 
@@ -408,6 +428,10 @@ class Controller {
 
     handleToggleFlag(itemIndex) {
         this.model.toggleFlag(this.model.openedList,itemIndex);
+    }
+
+    handleToggleCheckbox(itemIndex) {
+        this.model.toggleCheckbox(this.model.openedList,itemIndex);
     }
 
 }
