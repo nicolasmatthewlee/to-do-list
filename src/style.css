@@ -166,6 +166,10 @@ body {
     filter: invert(100%) sepia(0%) saturate(7494%) hue-rotate(148deg) brightness(79%) contrast(78%);
 }
 
+.list-item-flag.active {
+    filter: invert(84%) sepia(59%) saturate(2412%) hue-rotate(359deg) brightness(101%) contrast(106%);
+}
+
 .list-item-spacer {
     flex: 1;
 }

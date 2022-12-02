@@ -294,7 +294,7 @@ class View {
             const listItemFlag = this.createElement('img','list-item-flag');
             listItemFlag.src = FLAG_ICON;
             if (item.flag) {
-                listItem.classList.add('active');
+                listItemFlag.classList.add('active');
             }
             const listItemMenu = this.createElement('img','list-item-menu');
             listItemMenu.src = MENU_ICON;
@@ -336,7 +336,7 @@ class View {
 
     bindAddItem(handler) {
         this.addItemModalAddButton.addEventListener('click', () => {
-            handler(this.addItemModalNameInput.value,this.addItemModalDateInput.value,this.addItemModalFlagInput.value);
+            handler(this.addItemModalNameInput.value,this.addItemModalDateInput.value,this.addItemModalFlagInput.checked);
             this.hideModal();
         })
     }
