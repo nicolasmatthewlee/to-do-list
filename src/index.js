@@ -160,6 +160,16 @@ class Model {
         this.onAddItem(listID)
     }
 
+    deleteProject(listID) {
+        for (let i=0;i<this.lists.length;i++) {
+            if (this.lists[i].id==listID) {
+                this.lists.splice(i,1);
+            }
+        }
+        this.updateStorage();
+        this.onAddProject(0);
+    }
+
     // event binding
     
     bindAddProject(callback) {
@@ -483,6 +493,13 @@ class View {
         })
     }
 
+    bindDeleteProject(handler) {
+        this.projectSettingsModalDeleteButton.addEventListener('click',() => {
+            handler();
+            this.hideModal();
+        })
+    }
+
     bindAddItem(handler) {
         this.addItemModalAddButton.addEventListener('click', () => {
             handler(this.addItemModalNameInput.value,this.addItemModalDateInput.value,this.addItemModalFlagInput.checked);
@@ -522,10 +539,11 @@ class Controller {
         this.view.bindHomeButton(this.handleHomeButtonClicked.bind(this));
         this.view.bindAddProject(this.handleAddProject.bind(this));
         this.view.bindAddItem(this.handleAddItem.bind(this));
+        this.view.bindDeleteItem(this.handleDeleteItem.bind(this));
+        this.view.bindDeleteProject(this.handleDeleteProject.bind(this));
 
         this.model.bindAddProject(this.onListsChanged.bind(this));
         this.model.bindAddItem(this.handleListClicked.bind(this));
-        this.view.bindDeleteItem(this.handleDeleteItem.bind(this));
     }
 
     onListsChanged(newProjectID) {
@@ -565,6 +583,10 @@ class Controller {
 
     handleDeleteItem(itemIndex) {
         this.model.deleteItem(this.model.openedList,itemIndex);
+    }
+
+    handleDeleteProject() {
+        this.model.deleteProject(this.model.openedList);
     }
 
 }
