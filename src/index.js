@@ -11,6 +11,8 @@ import MENU_ICON from './assets/menu.svg'
 import FLAG_ICON from './assets/flag.svg'
 import SETTINGS_ICON from './assets/settings.svg';
 
+import {format, parseISO} from 'date-fns';
+
 class ListItem {
     constructor(name,datetime,flag) {
         this.name=name;
@@ -69,9 +71,9 @@ class Model {
                 new List('Today',this.generateID(),CALENDAR_ICON),
                 new List('Upcoming',this.generateID(),CLOCK_ICON)
             ];
-            this.lists[0].add(new ListItem('pick up groceries','2022-11-29T12:11',true));
-            this.lists[0].add(new ListItem('go to the store','2022-11-29T12:11',false));
-            this.lists[1].add(new ListItem('study for exams','2022-11-29T12:11',false));
+            this.lists[0].add(new ListItem('pick up groceries','December 1st, 2022',true));
+            this.lists[0].add(new ListItem('go to the store','December 15th, 2022',false));
+            this.lists[1].add(new ListItem('study for exams','December 19th, 2022',false));
         }
     }
 
@@ -283,7 +285,7 @@ class View {
         this.addItemModalNameInput.setAttribute('placeholder','Add an Item');
 
         this.addItemModalDateInput = this.createElement('input','add-item-modal-date-input');
-        this.addItemModalDateInput.setAttribute('type','datetime-local');
+        this.addItemModalDateInput.setAttribute('type','date');
 
         const addItemModalFlagContainer = this.createElement('div','add-item-modal-flag-container');
         const addItemModalFlagLabel = this.createElement('div','add-item-modal-flag-label','Flag');
@@ -507,7 +509,11 @@ class View {
 
     bindAddItem(handler) {
         this.addItemModalAddButton.addEventListener('click', () => {
-            handler(this.addItemModalNameInput.value,this.addItemModalDateInput.value,this.addItemModalFlagInput.checked);
+            if (this.addItemModalDateInput.value) {
+                handler(this.addItemModalNameInput.value,format(parseISO(this.addItemModalDateInput.value),'MMMM do, yyyy'),this.addItemModalFlagInput.checked);
+            } else {
+                handler(this.addItemModalNameInput.value,this.addItemModalDateInput.value,this.addItemModalFlagInput.checked);
+            }
             this.hideModal();
         })
     }

@@ -213,6 +213,8 @@ body {
     top: 20px;
 
     font-size: 12px;
+
+    white-space: nowrap;
 }
 
 .add-list-item {
