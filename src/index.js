@@ -38,14 +38,69 @@ class Model {
 
     IDGenerator=-1;
     openedList=0;
+    lists=[];
 
     constructor() {
+        this.storage=false;
+        if (this.storageAvailable('localStorage')) {
+            this.storage=window['localStorage'];
 
-        this.lists=[
-            new List('Today',this.generateID(),CALENDAR_ICON),
-            new List('Upcoming',this.generateID(),CLOCK_ICON)
-        ];
+            let listIDs=JSON.parse(this.storage.getItem('listIDs'));
+            if (listIDs) {
+                for (let ID of listIDs) {
+                    this.lists.push(JSON.parse(this.storage.getItem(String(ID))));
+                }
+            }
+
+            if (localStorage.getItem('IDGenerator')) {
+                this.IDGenerator=localStorage.getItem('IDGenerator');
+            }
+        }
+
+        // if no data, add default lists
+        if (this.lists.length==0) {
+            this.lists=[
+                new List('Today',this.generateID(),CALENDAR_ICON),
+                new List('Upcoming',this.generateID(),CLOCK_ICON)
+            ];
+            this.lists[0].add(new ListItem('pick up groceries','2022-11-29T12:11',true));
+            this.lists[0].add(new ListItem('go to the store','2022-11-29T12:11',false));
+            this.lists[1].add(new ListItem('study for exams','2022-11-29T12:11',false));
+        }
+
+        //this.storage.clear() // DELETE THIS
     }
+
+    // local storage
+
+    storageAvailable(type) {
+        try {
+            let storage = window[type];
+            const x = 'test';
+            storage.setItem(x,x);
+            storage.removeItem(x);
+            return true;
+        }
+        catch (e) {
+            return e;
+        }
+    }
+
+    updateStorage() {
+        if (this.storage) {
+
+            this.storage.setItem('IDGenerator',this.IDGenerator);
+
+            let listIDs=[];
+            for (let list of this.lists) {
+                this.storage.setItem(list.id,JSON.stringify(list));
+                listIDs.push(list.id);
+            }
+            this.storage.setItem('listIDs',JSON.stringify(listIDs));
+        }
+    }
+
+    // listIDGenerator
 
     generateID() {
         this.IDGenerator++;
@@ -57,6 +112,7 @@ class Model {
     addProject(name) {
         const newList = new List(name,this.generateID());
         this.lists.push(newList);
+        this.updateStorage();
         this.onAddProject(newList.id);
     }
 
@@ -66,6 +122,7 @@ class Model {
                 list.add(new ListItem(name,datetime,flag));
             }
         }
+        this.updateStorage();
         this.onAddItem(listID);
     }
 
@@ -75,6 +132,7 @@ class Model {
                 list.items[itemIndex].flag=!list.items[itemIndex].flag;
             }
         }
+        this.updateStorage();
         this.onAddItem(listID);
     }
 
@@ -84,7 +142,8 @@ class Model {
                 list.items[itemIndex].checked=!list.items[itemIndex].checked;
             }
         }
-        this.onAddItem(listID)
+        this.updateStorage();
+        this.onAddItem(listID);
     }
 
     deleteItem(listID,itemIndex) {
@@ -93,6 +152,7 @@ class Model {
                 list.items.splice(itemIndex,1);
             }
         }
+        this.updateStorage();
         this.onAddItem(listID)
     }
 
@@ -482,11 +542,8 @@ class Controller {
 
 }
 
+// create application
 const app = new Controller(new Model(), new View());
-
-// for testing (DELETE THIS)
-app.model.lists[0].add(new ListItem('pick up groceries','2022-11-29T12:11',true));
-app.model.lists[0].add(new ListItem('go to the store','2022-11-29T12:11',false));
 
 // show first project
 app.handleListClicked(0);
