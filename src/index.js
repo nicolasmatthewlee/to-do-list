@@ -48,7 +48,12 @@ class Model {
             let listIDs=JSON.parse(this.storage.getItem('listIDs'));
             if (listIDs) {
                 for (let ID of listIDs) {
-                    this.lists.push(JSON.parse(this.storage.getItem(String(ID))));
+                    // localStorage only saves data, so must create new List objects
+                    // for List methods can be called on subsequent launches
+                    let listData=JSON.parse(this.storage.getItem(String(ID)));
+                    let list = new List(listData.name,listData.id,listData.icon);
+                    list.items=listData.items;
+                    this.lists.push(list);
                 }
             }
 
