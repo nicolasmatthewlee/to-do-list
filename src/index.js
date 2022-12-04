@@ -240,6 +240,7 @@ class View {
         this.listTitle = this.createElement('div','list-title');
         this.listSettingsIcon = this.createElement('img','list-settings-icon');
         this.listSettingsIcon.src = SETTINGS_ICON;
+        this.listSettingsIcon.addEventListener('click',this.displayProjectSettingsModal.bind(this));
         listHeaderContainer.append(this.listTitle,this.listSettingsIcon);
         this.todoList = this.createElement('div','todo-list');
         mainContent.append(listHeaderContainer,this.todoList);
@@ -302,6 +303,17 @@ class View {
         this.deleteItemButton.textContent='Delete Item';
         itemModalOptionsContainer.append(itemModalCancelButton,this.deleteItemButton);
         this.itemModal.append(itemModalOptionsContainer);
+
+        // project settings modal
+        this.projectSettingsModal = this.createElement('div','project-settings-modal');
+        this.app.appendChild(this.projectSettingsModal);
+
+        const projectSettingsModalOptionsContainer = this.createElement('div','project-settings-modal-options-container');
+        const projectSettingsModalCancelButton = this.createElement('button','project-settings-modal-cancel-button','Cancel');
+        projectSettingsModalCancelButton.addEventListener('click',this.hideModal.bind(this));
+        this.projectSettingsModalDeleteButton = this.createElement('button','project-settings-modal-delete-button','Delete Project');
+        projectSettingsModalOptionsContainer.append(projectSettingsModalCancelButton,this.projectSettingsModalDeleteButton);
+        this.projectSettingsModal.append(projectSettingsModalOptionsContainer);
     }
 
     // helper methods
@@ -365,6 +377,11 @@ class View {
         this.itemModal.setAttribute('data-index',index)
     }
 
+    displayProjectSettingsModal() {
+        this.overlay.classList.add('active');
+        this.projectSettingsModal.classList.add('active');
+    }
+
     hideModal() {
         // used to reset and hide all modals
         this.overlay.classList.remove('active');
@@ -378,6 +395,8 @@ class View {
         this.addItemModal.classList.remove('active');
 
         this.itemModal.classList.remove('active');
+
+        this.projectSettingsModal.classList.remove('active');
     }
 
     makeSidebarItem(name,id,icon) {

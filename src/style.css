@@ -251,7 +251,7 @@ body {
 
 /* add item, project modals */
 
-.add-project-modal , .add-item-modal , .item-modal {
+.add-project-modal , .add-item-modal , .item-modal , .project-settings-modal {
     --modal-height: 95px;
     --modal-width: 300px;
     height: var(--modal-height);
@@ -300,7 +300,7 @@ body {
 
 /* add-project-modal */
 
-.add-project-modal.active , .add-item-modal.active , .item-modal.active {
+.add-project-modal.active , .add-item-modal.active , .item-modal.active , .project-settings-modal.active {
     visibility: visible;
 }
 
@@ -363,7 +363,7 @@ body {
 
 /* item modal */
 
-.item-modal-options-container {
+.item-modal-options-container , .project-settings-modal-options-container {
     display: flex;
     gap: 10px;
 }
