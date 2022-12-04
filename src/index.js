@@ -92,6 +92,7 @@ class Model {
 
     updateStorage() {
         if (this.storage) {
+            this.storage.clear();
 
             this.storage.setItem('IDGenerator',this.IDGenerator);
 
@@ -157,7 +158,7 @@ class Model {
             }
         }
         this.updateStorage();
-        this.onAddItem(listID)
+        this.onAddItem(listID);
     }
 
     deleteProject(listID) {
@@ -167,7 +168,7 @@ class Model {
             }
         }
         this.updateStorage();
-        this.onAddProject(0);
+        this.onAddProject(this.getListIDs()[0]);
     }
 
     // event binding
@@ -432,9 +433,13 @@ class View {
             this.todoList.removeChild(this.todoList.firstChild);
         }
 
+        // if no items, return
+        if (!items) {
+            return;
+        }
+
         // index
         let n=0;
-
         // display items
         items.forEach(item => {
             const listItem = this.createElement('div','list-item');
@@ -595,4 +600,4 @@ class Controller {
 const app = new Controller(new Model(), new View());
 
 // show first project
-app.handleListClicked(0);
+app.handleListClicked(app.model.getListIDs()[0]);
