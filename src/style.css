@@ -15,6 +15,8 @@
 
     --icon-size: 23px;
 
+    --icon-grey-filter: invert(86%) sepia(3%) saturate(5%) hue-rotate(314deg) brightness(87%) contrast(90%);
+
     --icon-hover-filter: invert(44%) sepia(41%) saturate(1044%) hue-rotate(316deg) brightness(79%) contrast(103%);
 
     --yellow-icon-filter: invert(61%) sepia(86%) saturate(524%) hue-rotate(1deg) brightness(106%) contrast(104%);
@@ -119,7 +121,7 @@ body {
 }
 
 .sidebar-item.add-project>img {
-    filter: invert(86%) sepia(3%) saturate(5%) hue-rotate(314deg) brightness(87%) contrast(90%);
+    filter: var(--icon-grey-filter);
 }
 
 /* main content */
@@ -132,11 +134,30 @@ body {
     gap: 15px;
 }
 
-.list-title {
+.list-header-container {
     padding: 40px 0px 0px 40px;
 
+    display: flex;
+    align-items: center;
+}
+
+.list-title {
     font-size: 21px;
     font-weight: 500;
+}
+
+.list-settings-icon {
+    height: 20px;
+    width: 20px;
+
+    filter: var(--icon-grey-filter);
+
+    position: absolute;
+    right: 40px;
+}
+
+.list-settings-icon:hover {
+    filter: var(--icon-hover-filter);
 }
 
 .todo-list {
@@ -208,7 +229,7 @@ body {
 
 .add-list-item-icon {
     height: 23px;
-    filter: invert(86%) sepia(3%) saturate(5%) hue-rotate(314deg) brightness(87%) contrast(90%);
+    filter: var(--icon-grey-filter);
 }
 
 .add-list-item:hover>.add-list-item-icon {

@@ -9,6 +9,7 @@ import CIRCLE_ICON from './assets/circle.svg';
 import CIRCLE_CHECKED_ICON from './assets/circle_checked.svg';
 import MENU_ICON from './assets/menu.svg'
 import FLAG_ICON from './assets/flag.svg'
+import SETTINGS_ICON from './assets/settings.svg';
 
 class ListItem {
     constructor(name,datetime,flag) {
@@ -72,8 +73,6 @@ class Model {
             this.lists[0].add(new ListItem('go to the store','2022-11-29T12:11',false));
             this.lists[1].add(new ListItem('study for exams','2022-11-29T12:11',false));
         }
-
-        //this.storage.clear() // DELETE THIS
     }
 
     // local storage
@@ -237,9 +236,13 @@ class View {
         this.app.append(header,contentContainer);
 
         // todo-content
+        const listHeaderContainer = this.createElement('div','list-header-container');
         this.listTitle = this.createElement('div','list-title');
+        this.listSettingsIcon = this.createElement('img','list-settings-icon');
+        this.listSettingsIcon.src = SETTINGS_ICON;
+        listHeaderContainer.append(this.listTitle,this.listSettingsIcon);
         this.todoList = this.createElement('div','todo-list');
-        mainContent.append(this.listTitle,this.todoList);
+        mainContent.append(listHeaderContainer,this.todoList);
 
         // overlay
         this.overlay = this.createElement('div','overlay');
