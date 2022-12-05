@@ -27,6 +27,8 @@
 body {
     width: 100vw;
     height: 100vh;
+
+    overflow: hidden;
 }
 
 .header {
@@ -97,6 +99,8 @@ body {
 
     background-color: var(--gray);
     border: none;
+
+    min-height: 40px;
 }
 
 .sidebar-item:hover {
