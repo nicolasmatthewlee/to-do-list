@@ -495,6 +495,10 @@ class View {
 
     bindAddProject(handler) {
         this.addProjectModalAddButton.addEventListener('click',() => {
+            if (this.addProjectModalNameInput.value=='') {
+                alert('Project name cannot be empty.');
+                return;
+            }
             handler(this.addProjectModalNameInput.value);
             this.hideModal();
         })
@@ -509,6 +513,10 @@ class View {
 
     bindAddItem(handler) {
         this.addItemModalAddButton.addEventListener('click', () => {
+            if (this.addItemModalNameInput.value=='') {
+                alert('Item name cannot be empty.');
+                return;
+            }
             if (this.addItemModalDateInput.value) {
                 handler(this.addItemModalNameInput.value,format(parseISO(this.addItemModalDateInput.value),'MMMM do, yyyy'),this.addItemModalFlagInput.checked);
             } else {
