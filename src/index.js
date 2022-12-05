@@ -10,6 +10,7 @@ import CIRCLE_CHECKED_ICON from './assets/circle_checked.svg';
 import MENU_ICON from './assets/menu.svg'
 import FLAG_ICON from './assets/flag.svg'
 import SETTINGS_ICON from './assets/settings.svg';
+import LIST_ICON from './assets/list.svg';
 
 import {format, parseISO} from 'date-fns';
 
@@ -23,7 +24,7 @@ class ListItem {
 }
 
 class List {
-    constructor(name,id,icon=CALENDAR_ICON) {
+    constructor(name,id,icon=LIST_ICON) {
         this.name=name;
         this.id=id;
         this.icon=icon;
