@@ -565,7 +565,7 @@ class Controller {
 
     // event handling
     handleHomeButtonClicked() {
-        this.handleListClicked(0);
+        this.handleListClicked(this.model.getListIDs()[0]);
     }
 
     handleListClicked(id) {
