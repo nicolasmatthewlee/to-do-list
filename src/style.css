@@ -184,7 +184,14 @@ body {
     left: 35px;
 
     font-weight: 400;
-    font-size: 17px;    
+    font-size: 17px; 
+    line-height: 1.2; /* necessary to prevent text cropping */
+    
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    overflow: hidden;
+    max-width: calc(100% - 90px);
 }
 
 .list-item-icon , .list-item-menu , .list-item-flag {
