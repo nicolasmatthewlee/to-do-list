@@ -132,6 +132,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+
+    overflow: hidden;
 }
 
 .list-header-container {
@@ -144,6 +146,14 @@ body {
 .list-title {
     font-size: 21px;
     font-weight: 500;
+
+    line-height: 1.2; /* necessary to prevent text cropping */
+    
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    overflow: hidden;
+    max-width: calc(100% - 65px);
 }
 
 .list-settings-icon {
