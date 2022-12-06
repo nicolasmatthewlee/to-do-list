@@ -243,8 +243,12 @@ body {
     left: 35px;
 
     font-size: 12px;
+    
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
-    white-space: nowrap;    
+    overflow: hidden;
+    max-width: calc(100% - 90px);  
 }
 
 .add-list-item {
