@@ -313,7 +313,7 @@ body {
     visibility: visible;
 }
 
-.add-project-modal-options-container , .project-settings-modal-options-container , .item-modal-options-container {
+.add-project-modal-options-container , .project-settings-modal-options-container , .item-modal-options-container , .add-item-modal-options-container {
     display: flex;
     gap: 10px;
 
@@ -330,7 +330,7 @@ body {
     height: 105px;
 }
 
-.add-project-modal-name-input {
+.add-project-modal-name-input , .add-item-modal-name-input {
     height: 30px;
     font-size: 20px;
     background-color: white;
@@ -338,11 +338,11 @@ body {
     margin: 3px 0px 5px 4px;
 }
 
-.add-project-modal-name-input:focus {
+.add-project-modal-name-input:focus , .add-item-modal-name-input:focus {
     outline: none;
 }
 
-.add-project-modal-cancel-button , .add-project-modal-add-button , .project-settings-modal-cancel-button , .project-settings-modal-delete-button , .item-modal-options-container>button {
+.add-project-modal-cancel-button , .add-project-modal-add-button , .project-settings-modal-cancel-button , .project-settings-modal-delete-button , .item-modal-options-container>button , .add-item-modal-options-container>button {
     height: 25px;
     border-radius: 4px;
 
@@ -350,13 +350,13 @@ body {
     font-weight: 500;
 }
 
-.add-project-modal-cancel-button , .project-settings-modal-cancel-button , .item-modal-cancel-button {
+.add-project-modal-cancel-button , .project-settings-modal-cancel-button , .item-modal-cancel-button , .add-item-modal-cancel-button {
     width: 60px;
     border: 1px solid white;
     background-color: white;
 }
 
-.add-project-modal-add-button , .project-settings-modal-delete-button , .item-modal-delete-button {
+.add-project-modal-add-button , .project-settings-modal-delete-button , .item-modal-delete-button , .add-item-modal-add-button {
     width: 85px;
 
     color: white;
@@ -365,7 +365,7 @@ body {
     border-radius: 4px;
 }
 
-.add-project-modal-cancel-button:hover , .add-project-modal-add-button:hover , .project-settings-modal-cancel-button:hover , .project-settings-modal-delete-button:hover , .item-modal-options-container>button:hover {
+.add-project-modal-cancel-button:hover , .add-project-modal-add-button:hover , .project-settings-modal-cancel-button:hover , .project-settings-modal-delete-button:hover , .item-modal-options-container>button:hover , .add-item-modal-options-container>button:hover {
     filter: brightness(95%);
 }
 
@@ -384,21 +384,27 @@ body {
 /* add-item-modal */
 
 .add-item-modal {
-    height: 200px;
+    height: 150px;
 }
 
-.add-item-modal-name-input , .add-item-modal-date-input {
+.add-item-modal-date-input {
     height: 20px;
+    margin: 0px 6px 0px 6px;
 }
 
 .add-item-modal-flag-container {
     display: flex;
     gap: 5px;
     align-items: center;
+    margin: 7px 0px 0px 6px;
 }
 
 .add-item-modal-flag-label {
     font-size: 15px;
+}
+
+.add-item-modal-add-button {
+    width: 70px;
 }
 
 /* item modal */
