@@ -280,10 +280,10 @@ body {
     color: var(--red);
 }
 
-/* add item, project modals */
+/* modals */
 
 .add-project-modal , .add-item-modal , .item-modal , .project-settings-modal {
-    --modal-height: 95px;
+    --modal-height: 102px;
     --modal-width: 300px;
     height: var(--modal-height);
     width: var(--modal-width);
@@ -303,10 +303,82 @@ body {
     display: flex;
     flex-direction: column;
 
-    border-radius: var(--border-radius);
-    gap: 10px;
+    border-radius: 4px;
+    gap: 0px;
 
     box-shadow: 2px 2px 5px 2px gray;
+}
+
+.add-project-modal.active , .add-item-modal.active , .item-modal.active , .project-settings-modal.active {
+    visibility: visible;
+}
+
+.add-project-modal-options-container , .project-settings-modal-options-container , .item-modal-options-container {
+    display: flex;
+    gap: 10px;
+
+    justify-content: right;
+}
+
+.project-settings-modal , .item-modal {
+    height: 65px;
+}
+
+/* add-project-modal */
+
+.add-project-modal {
+    height: 105px;
+}
+
+.add-project-modal-name-input {
+    height: 30px;
+    font-size: 20px;
+    background-color: white;
+    border: none;
+    margin: 3px 0px 5px 4px;
+}
+
+.add-project-modal-name-input:focus {
+    outline: none;
+}
+
+.add-project-modal-cancel-button , .add-project-modal-add-button , .project-settings-modal-cancel-button , .project-settings-modal-delete-button , .item-modal-options-container>button {
+    height: 25px;
+    border-radius: 4px;
+
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.add-project-modal-cancel-button , .project-settings-modal-cancel-button , .item-modal-cancel-button {
+    width: 60px;
+    border: 1px solid white;
+    background-color: white;
+}
+
+.add-project-modal-add-button , .project-settings-modal-delete-button , .item-modal-delete-button {
+    width: 85px;
+
+    color: white;
+    background-color: var(--red);
+    border: 1px solid var(--red);
+    border-radius: 4px;
+}
+
+.add-project-modal-cancel-button:hover , .add-project-modal-add-button:hover , .project-settings-modal-cancel-button:hover , .project-settings-modal-delete-button:hover , .item-modal-options-container>button:hover {
+    filter: brightness(95%);
+}
+
+.add-project-modal-footer , .add-item-modal-footer , .project-settings-modal-footer , .item-modal-footer {
+    height: 20px;
+    width: 100%;
+
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+
+    border-radius: 0px 0px 4px 4px;
+    background-color: var(--light-gray);
 }
 
 /* add-item-modal */
@@ -329,69 +401,6 @@ body {
     font-size: 15px;
 }
 
-/* add-project-modal */
-
-.add-project-modal.active , .add-item-modal.active , .item-modal.active , .project-settings-modal.active {
-    visibility: visible;
-}
-
-.add-project-modal-name-input {
-    height: 40px;
-    font-size: 17px;
-    background-color: white;
-    border: none;
-}
-
-.add-project-modal-name-input:focus {
-    outline: none;
-}
-
-.add-project-modal-options-container {
-    display: flex;
-    gap: 10px;
-
-    justify-content: right;
-}
-
-.add-project-modal-cancel-button {
-    width: 60px;
-    height: 25px;
-    font-size: 12px;
-
-    background-color: white;
-    border: 1px solid lightgray;
-    border-radius: var(--border-radius);
-}
-
-.add-project-modal-cancel-button:hover {
-    background-color: var(--light-gray);
-}
-
-.add-project-modal-add-button {
-    width: 85px;
-    font-size: 12px;
-
-    color: white;
-    background-color: var(--red);
-    border: 1px solid var(--red);
-    border-radius: var(--border-radius);
-}
-
-.add-project-modal-add-button:hover {
-    filter: brightness(90%);
-}
-
-.add-project-modal-footer {
-    height: 15px;
-    width: 100%;
-
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-
-    background-color: var(--light-gray);
-}
-
 /* item modal */
 
 .item-modal-options-container , .project-settings-modal-options-container {
@@ -401,6 +410,12 @@ body {
 
 .item-modal-cancel-button , .item-modal-delete-button {
     height: 25px;
+}
+
+/* project settings modal */
+
+.project-settings-modal-delete-button {
+    width: 100px;
 }
 
 /* overlay */

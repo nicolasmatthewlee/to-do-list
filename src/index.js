@@ -316,7 +316,8 @@ class View {
         this.deleteItemButton = this.createElement('button','item-modal-delete-button');
         this.deleteItemButton.textContent='Delete Item';
         itemModalOptionsContainer.append(itemModalCancelButton,this.deleteItemButton);
-        this.itemModal.append(itemModalOptionsContainer);
+        const itemModalFooter = this.createElement('div','item-modal-footer');
+        this.itemModal.append(itemModalOptionsContainer,itemModalFooter);
 
         // project settings modal
         this.projectSettingsModal = this.createElement('div','project-settings-modal');
@@ -327,7 +328,8 @@ class View {
         projectSettingsModalCancelButton.addEventListener('click',this.hideModal.bind(this));
         this.projectSettingsModalDeleteButton = this.createElement('button','project-settings-modal-delete-button','Delete Project');
         projectSettingsModalOptionsContainer.append(projectSettingsModalCancelButton,this.projectSettingsModalDeleteButton);
-        this.projectSettingsModal.append(projectSettingsModalOptionsContainer);
+        const projectSettingsModalFooter = this.createElement('div','project-settings-modal-footer');
+        this.projectSettingsModal.append(projectSettingsModalOptionsContainer,projectSettingsModalFooter);
     }
 
     // helper methods
