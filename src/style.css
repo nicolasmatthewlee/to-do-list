@@ -239,11 +239,12 @@ body {
 
 .list-item-date {
     position: absolute;
-    top: 20px;
+    top: 38px;
+    left: 35px;
 
     font-size: 12px;
 
-    white-space: nowrap;
+    white-space: nowrap;    
 }
 
 .add-list-item {

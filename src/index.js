@@ -466,8 +466,7 @@ class View {
             let index=n; // necessary as parameters of a function are passed by reference
             listItemMenu.addEventListener('click',() => {this.displayItemModal(index)});
             const listItemDate = this.createElement('div','list-item-date',item.datetime);
-            listItemLabel.appendChild(listItemDate);
-            listItem.append(listItemIcon,listItemLabel,listItemSpacer,listItemFlag,listItemMenu);
+            listItem.append(listItemIcon,listItemLabel,listItemDate,listItemSpacer,listItemFlag,listItemMenu);
 
             this.todoList.append(listItem);
 
@@ -618,3 +617,6 @@ const app = new Controller(new Model(), new View());
 
 // show first project
 app.handleListClicked(app.model.getListIDs()[0]);
+
+// DELETE THIS
+window.app=app;
